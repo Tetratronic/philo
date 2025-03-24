@@ -38,10 +38,12 @@ int	main(int argc, char **argv)
 	running = 1;
 	if (!valid_values(argc, argv))
 		return (-1);
-	set_vars(&vars);
-	philos = set_philos();
+	init_vars(&vars);
+	philos = init_philos();
 	if (!philos)
 		return (-1);
-	while (*philos++)
-		pthread_create();
+	pthread_create(monitor_death, NULL, death_monitor, NULL);
+	pthread_create(monitor_meals, NULL, meals_monitor, NULL);
+	while (*philos)
+		pthread_create((*philos)->id, NULL, philosopher, *philos++);
 }

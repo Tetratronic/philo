@@ -12,6 +12,7 @@
 
 #ifndef PHILO_H
 # define PHILO_H
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <pthread.h>
@@ -30,6 +31,7 @@ typedef struct s_vars{
 typedef struct	s_philo{
 	pthread_t		id;
 	int				meals_nb;
+	int				dead;
 	struct timeval	last_meal;
 }	t_philo;
 
