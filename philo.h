@@ -19,7 +19,7 @@
 # include <unistd.h>
 # include <ctype.h>
 
-typedef struct	s_philo{}	t_philo;
+typedef struct s_philo{}	t_philo;
 
 typedef struct s_vars{
 	int				n;
@@ -34,7 +34,7 @@ typedef struct s_vars{
 	pthread_mutex_t	print;
 }	t_vars;
 
-typedef struct	s_philo{
+typedef struct s_philo{
 	pthread_t		id;
 	int				nb;
 	int				meals_nb;
@@ -47,6 +47,6 @@ int		valid_values(int argc, char **argv);
 void	init_vars(t_vars *vars, char **argv);
 int		init_philos(t_vars *vars);
 int		init_mutexes(t_vars *vars);
-void    clean_resources(t_vars *vars);
+void	clean_resources(t_vars *vars);
 
 #endif

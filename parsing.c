@@ -14,7 +14,7 @@
 
 int	valid_values(int argc, char **argv)
 {
-	int i;
+	int	i;
 
 	if (argc < 5 || argc > 6)
 		return (0);

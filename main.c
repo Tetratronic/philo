@@ -13,39 +13,39 @@
 #include "philo.h"
 #include <stdbool.h>
 
-void think(int id) {
-    printf("Philosopher %d is thinking...\n", id);
-    usleep(100);
-}
-
-void p_sleep(int id) {
-    printf("Philosopher %d is sleeping...\n", id);
-    usleep(100);
-}
-
-void eat(int id) {
-    printf("Philosopher %d is eating...\n", id);
-    usleep(100);
-}
-
-void	*phi_routine(void)
-{
-	printf("Hey\n");
-
-	return (NULL);
-}
-
-void	*monitor(void)
-{
-
-}
+// void think(int id) {
+//     printf("Philosopher %d is thinking...\n", id);
+//     usleep(100);
+// }
+//
+// void p_sleep(int id) {
+//     printf("Philosopher %d is sleeping...\n", id);
+//     usleep(100);
+// }
+//
+// void eat(int id) {
+//     printf("Philosopher %d is eating...\n", id);
+//     usleep(100);
+// }
+//
+// void	*thread_routine(void)
+// {
+// 	printf("Hey\n");
+//
+// 	return (NULL);
+// }
+//
+// void	*monitor(void)
+// {
+//
+// }
 
 int	main(int argc, char **argv)
 {
-	t_vars			vars;
-	pthread_t		monitor;
-	int				i;
-	
+	t_vars		vars;
+	pthread_t	monitor;
+	int			i;
+
 	if (!valid_values(argc, argv))
 		return (-1);
 	init_vars(&vars);
@@ -56,10 +56,10 @@ int	main(int argc, char **argv)
 	i = -1;
 	while (++i < vars->n)
 	{
-		pthread_create(vars.philos[i].id, NULL, phi_routine,&vars.philos[i]);
+		pthread_create(vars.philos[i].id, NULL, p_routine, &vars.philos[i]);
 		pthread_detach(vars.philos[i].id);
 	}
 	pthread_create(monitor, NULL, monitor, &vars);
 	pthread_join(monitor);
-	return(clean_resources(&vars, 0));
+	return (clean_resources(&vars, 0));
 }
