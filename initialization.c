@@ -26,20 +26,32 @@ void	init_vars(t_vars *vars, char **argv)
 
 int	init_philos(t_vars *vars)
 {
-	t_philo *result;
-	size_t	i;
+	int	i;
 
-	result = malloc(vars->n * sizeof(t_philo));
-	if (!result)
+	vars->philos = malloc(vars->n * sizeof(t_philo));
+	if (!vars->philos)
 		return (0);
 	i = -1;
 	while (++i < vars->n)
 	{
-		result[i].nb = i + 1;
-		result[i].meals_nb = 0;
-		result[i].dead = 0;
-		result[i].vars = vars;
+		vars->philos.nb = i + 1;
+		vars->philos.meals_nb = 0;
+		vars->philos.dead = 0;
+		vars->philos.vars = vars;
 	}
-	vars->philos = result;
+	return (1);
+}
+
+int	init_mutexes(t_vars *vars)
+{
+	int	i;
+
+	vars->forks = malloc(vars->n * sizeof(pthread_mutex_t));
+	if (!vars->forks)
+		return (0);
+	i = -1;
+	while (++i < vars->n)
+		pthread_mutex_init(&vars->forks[i], NULL);
+	pthread_mutex_init(&vars->print, NULL);
 	return (1);
 }
