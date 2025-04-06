@@ -28,29 +28,40 @@ void eat(int id) {
     usleep(100);
 }
 
-void	*exist(void)
+void	*phi_routine(void)
 {
 	printf("Hey\n");
 
 	return (NULL);
 }
 
+void	*monitor(void)
+{
+
+}
+
 int	main(int argc, char **argv)
 {
 	t_vars			vars;
+	pthread_t		monitor;
 	int				i;
 	
 	if (!valid_values(argc, argv))
 		return (-1);
 	init_vars(&vars);
-	if (!init_philos(&vars))
+	if (!init_mutexes(&vars))
 		return (-1);
-	if (!init_forks(&vars))
+	if (!init_philos(&vars))
 		return (-1);
 	i = -1;
 	while (++i < vars->n)
 	{
-		pthread_create(vars.philos[i].id, NULL, &vars.philos[i]);
-		pthread_detach(vars->philos[i].id);
+		pthread_create(vars.philos[i].id, NULL, phi_routine,&vars.philos[i]);
+		pthread_detach(vars.philos[i].id);
 	}
+	pthread_create(monitor, NULL, monitor, &vars);
+	pthread_join(monitor);
+	destroy_mutexes(&vars);
+	free_mem(&vars);
+	return (0);
 }

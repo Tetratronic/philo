@@ -47,5 +47,6 @@ int		valid_values(int argc, char **argv);
 void	init_vars(t_vars *vars, char **argv);
 int		init_philos(t_vars *vars);
 int		init_mutexes(t_vars *vars);
+void    clean_resources(t_vars *vars);
 
 #endif
