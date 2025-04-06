@@ -31,8 +31,9 @@ void	free_mem(t_vars *vars)
 	vars->forks = NULL;
 }
 
-void	clean_resources(t_vars *vars)
+int	clean_resources(t_vars *vars, int ret_value)
 {
 	destroy_mutexes(vars);
 	free_mem(vars);
+	return (ret_value);
 }

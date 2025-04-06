@@ -50,9 +50,9 @@ int	main(int argc, char **argv)
 		return (-1);
 	init_vars(&vars);
 	if (!init_mutexes(&vars))
-		return (-1);
+		return (clean_resources(&vars, -1));
 	if (!init_philos(&vars))
-		return (-1);
+		return (clean_resources(&vars, -1));
 	i = -1;
 	while (++i < vars->n)
 	{
@@ -61,7 +61,5 @@ int	main(int argc, char **argv)
 	}
 	pthread_create(monitor, NULL, monitor, &vars);
 	pthread_join(monitor);
-	destroy_mutexes(&vars);
-	free_mem(&vars);
-	return (0);
+	return(clean_resources(&vars, 0));
 }
