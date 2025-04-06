@@ -6,11 +6,12 @@
 /*   By: abenkaro <abenkaro@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 02:54:48 by abenkaro          #+#    #+#             */
-/*   Updated: 2025/03/24 02:54:53 by abenkaro         ###   ########.fr       */
+/*   Updated: 2025/03/27 05:27:02 by abenkaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <stdbool.h>
 
 void think(int id) {
     printf("Philosopher %d is thinking...\n", id);
@@ -27,23 +28,29 @@ void eat(int id) {
     usleep(100);
 }
 
+void	*exist(void)
+{
+	printf("Hey\n");
+
+	return (NULL);
+}
+
 int	main(int argc, char **argv)
 {
 	t_vars			vars;
-	t_philo			*philos;
-	int				running;
-	pthread_t		monitor_death;
-	pthread_t		monitor_meals;
+	int				i;
 	
-	running = 1;
 	if (!valid_values(argc, argv))
 		return (-1);
 	init_vars(&vars);
-	philos = init_philos();
-	if (!philos)
+	if (!init_philos(&vars))
 		return (-1);
-	pthread_create(monitor_death, NULL, death_monitor, NULL);
-	pthread_create(monitor_meals, NULL, meals_monitor, NULL);
-	while (*philos)
-		pthread_create((*philos)->id, NULL, philosopher, *philos++);
+	if (!init_forks(&vars))
+		return (-1);
+	i = -1;
+	while (++i < vars->n)
+	{
+		pthread_create(vars.philos[i].id, NULL, &vars.philos[i]);
+		pthread_detach(vars->philos[i].id);
+	}
 }

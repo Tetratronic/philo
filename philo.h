@@ -19,22 +19,31 @@
 # include <unistd.h>
 # include <ctype.h>
 
+typedef struct	s_philo{}	t_philo;
+
 typedef struct s_vars{
-	int				eat;
-	int				sleep;
-	int				think;
+	int				n;
+	int				ttd;
+	int				tte;
+	int				tts;
 	int				meal_count;
+	bool			running;
+	t_philo			*philos;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
 }	t_vars;
 
 typedef struct	s_philo{
 	pthread_t		id;
+	int				nb;
 	int				meals_nb;
 	int				dead;
 	struct timeval	last_meal;
+	t_vars			*vars;
 }	t_philo;
 
-int	valid_values(int argc, char **argv);
+int		valid_values(int argc, char **argv);
+void	init_vars(t_vars *vars, char **argv);
+int		init_philos(t_vars *vars);
 
 #endif
