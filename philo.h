@@ -29,6 +29,7 @@ typedef struct s_vars{
 	int				meal_count;
 	bool			running;
 	t_philo			*philos;
+	struct timeval	start_time;
 	pthread_mutex_t	running_mutex;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
@@ -38,7 +39,6 @@ typedef struct s_philo{
 	pthread_t		id;
 	int				nb;
 	int				meals_nb;
-	int				dead;
 	struct timeval	last_meal;
 	t_vars			*vars;
 }	t_philo;
@@ -48,5 +48,7 @@ void	init_vars(t_vars *vars, char **argv);
 int		init_philos(t_vars *vars);
 int		init_mutexes(t_vars *vars);
 void	clean_resources(t_vars *vars);
+void	*p_routine(void *arg);
+void	*monitor(void *arg);
 
 #endif

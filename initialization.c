@@ -22,6 +22,7 @@ void	init_vars(t_vars *vars, char **argv)
 		vars->meal_count = atoi(argv[5]);
 	else
 		vars->meal_count = -1;
+	gettimeofday(&vars->start_time);
 }
 
 int	init_philos(t_vars *vars)
