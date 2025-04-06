@@ -18,8 +18,10 @@
 # include <pthread.h>
 # include <unistd.h>
 # include <ctype.h>
+# include <stdbool.h>
+# include <sys/time.h>
 
-typedef struct s_philo{}	t_philo;
+typedef struct s_philo	t_philo;
 
 typedef struct s_vars{
 	int				n;
@@ -47,8 +49,9 @@ int		valid_values(int argc, char **argv);
 void	init_vars(t_vars *vars, char **argv);
 int		init_philos(t_vars *vars);
 int		init_mutexes(t_vars *vars);
-void	clean_resources(t_vars *vars);
+int		clean_resources(t_vars *vars, int ret_value);
 void	*p_routine(void *arg);
 void	*monitor(void *arg);
+long	get_elapsed_time(struct timeval start);
 
 #endif

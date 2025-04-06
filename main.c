@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <stdbool.h>
 
 // void think(int id) {
 //     printf("Philosopher %d is thinking...\n", id);
@@ -43,23 +42,27 @@
 int	main(int argc, char **argv)
 {
 	t_vars		vars;
-	pthread_t	monitor;
+	pthread_t	mon_id;
 	int			i;
 
 	if (!valid_values(argc, argv))
 		return (-1);
-	init_vars(&vars);
-	if (!init_mutexes(&vars))
-		return (clean_resources(&vars, -1));
-	if (!init_philos(&vars))
+	init_vars(&vars, argv);
+	if (!init_mutexes(&vars) || !init_philos(&vars))
 		return (clean_resources(&vars, -1));
 	i = -1;
-	while (++i < vars->n)
+	while (++i < vars.n)
 	{
-		pthread_create(vars.philos[i].id, NULL, p_routine, &vars.philos[i]);
+		if (pthread_create(&vars.philos[i].id, NULL, p_routine, &vars.philos[i]) != 0)
+		{
+			vars.running = false;
+			break ;
+		}
 		pthread_detach(vars.philos[i].id);
 	}
-	pthread_create(monitor, NULL, monitor, &vars);
-	pthread_join(monitor);
+	if (pthread_create(&mon_id, NULL, monitor, &vars) != 0)
+		vars.running = false;
+	else
+		pthread_join(mon_id, NULL);
 	return (clean_resources(&vars, 0));
 }

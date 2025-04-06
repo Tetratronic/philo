@@ -42,7 +42,7 @@ static void	eat(t_philo *philo)
 	usleep(vars->tte * 1000);
 }
 
-static void	sleep(t_philo *philo)
+static void	p_sleep(t_philo *philo)
 {
 	t_vars	*vars;
 
@@ -69,10 +69,10 @@ void	*p_routine(void *arg)
 	t_vars	*vars;
 
 	philo = (t_philo *)arg;
-	vars = philo.vars;
+	vars = philo->vars;
 	while (1)
 	{
-		pthread_mutex_lock(&vars->running_mutex)
+		pthread_mutex_lock(&vars->running_mutex);
 		if (!vars->running)
 		{
 			pthread_mutex_unlock(&vars->running_mutex);
@@ -80,14 +80,15 @@ void	*p_routine(void *arg)
 		}
 		pthread_mutex_unlock(&vars->running_mutex);
 		take_forks(philo);
-		gettimeofday(&philo->last_meal);
+		gettimeofday(&philo->last_meal, NULL);
 		philo->meals_nb++;
 		eat(philo);
 		pthread_mutex_unlock(&vars->forks[philo->nb % vars->n]);
 		pthread_mutex_unlock(&vars->forks[philo->nb - 1]);
-		sleep(philo);
+		p_sleep(philo);
 		if (vars->meal_count != -1 && philo->meals_nb >= vars->meal_count)
 			break ;
 		think(philo);
 	}
+	return (NULL);
 }

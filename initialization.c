@@ -18,11 +18,14 @@ void	init_vars(t_vars *vars, char **argv)
 	vars->ttd = atoi(argv[2]);
 	vars->tte = atoi(argv[3]);
 	vars->tts = atoi(argv[4]);
+	vars->running = true;
 	if (argv[5])
 		vars->meal_count = atoi(argv[5]);
 	else
 		vars->meal_count = -1;
-	gettimeofday(&vars->start_time);
+	gettimeofday(&vars->start_time, NULL);
+	vars->philos = NULL;
+	vars->forks = NULL;
 }
 
 int	init_philos(t_vars *vars)
@@ -35,10 +38,10 @@ int	init_philos(t_vars *vars)
 	i = -1;
 	while (++i < vars->n)
 	{
-		vars->philos.nb = i + 1;
-		vars->philos.meals_nb = 0;
-		vars->philos.dead = 0;
-		vars->philos.vars = vars;
+		vars->philos[i].nb = i + 1;
+		vars->philos[i].meals_nb = 0;
+		vars->philos[i].vars = vars;
+		vars->philos[i].last_meal = vars->start_time;
 	}
 	return (1);
 }
