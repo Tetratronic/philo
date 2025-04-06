@@ -53,5 +53,6 @@ int	init_mutexes(t_vars *vars)
 	while (++i < vars->n)
 		pthread_mutex_init(&vars->forks[i], NULL);
 	pthread_mutex_init(&vars->print, NULL);
+	pthread_mutex_init(&vars->running_mutex, NULL);
 	return (1);
 }

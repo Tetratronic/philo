@@ -29,6 +29,7 @@ typedef struct s_vars{
 	int				meal_count;
 	bool			running;
 	t_philo			*philos;
+	pthread_mutex_t	running_mutex;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
 }	t_vars;
