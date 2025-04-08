@@ -56,7 +56,8 @@ static void	p_sleep(t_philo *philo)
 static void	think(t_philo *philo)
 {
 	t_vars	*vars;
-
+	
+	vars = philo->vars;
 	pthread_mutex_lock(&vars->print);
 	printf("%ld: Philosopher %d is thinking\n", get_elapsed_time(vars->start_time), philo->nb);
 	pthread_mutex_unlock(&vars->print);

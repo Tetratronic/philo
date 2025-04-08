@@ -1,0 +1,22 @@
+SRCS = main.c cleaning.c elapsed_time.c initialization.c monitor.c p_routine.c parsing.c
+NAME = philo
+OBJS = $(SRCS:%.c=%.o)
+CC = cc
+HEADER = philo.h
+CFLAGS = -Wall -Wextra -Werror
+
+all : $(NAME)
+
+%.o: %.c $(HEADER)
+	$(CC) $(CFLAGS)  -I. -c $< -o $@
+
+$(NAME): $(OBJS) $(HEADER)
+	$(CC) $(OBJS) $(CFLAGS) -o $(NAME)
+
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
