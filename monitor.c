@@ -43,7 +43,7 @@ void	*monitor(void *arg)
                 break;
             }
         }
-        usleep(500);
+        usleep(vars->ttd % 10);
     }
 	return (NULL);
 }
