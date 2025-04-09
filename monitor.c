@@ -31,7 +31,9 @@ void	*monitor(void *arg)
 		i = -1;
 		while (++i < vars->n)
 		{
+			pthread_mutex_lock(&vars->meal_mutex);
 			elapsed = get_elapsed_time(vars->philos[i].last_meal);
+			pthread_mutex_unlock(&vars->meal_mutex);
 			if (elapsed > vars->ttd)
 			{
 				pthread_mutex_lock(&vars->running_mutex);
@@ -44,7 +46,9 @@ void	*monitor(void *arg)
 				break ;
 			}
 		}
-		usleep(vars->ttd % 10);
 	}
+	i = -1;
+	while (++i < vars->n)
+		pthread_join(vars->philos[i].id, NULL);
 	return (NULL);
 }

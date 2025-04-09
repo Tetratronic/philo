@@ -33,6 +33,7 @@ typedef struct s_vars{
 	t_philo			*philos;
 	struct timeval	start_time;
 	pthread_mutex_t	running_mutex;
+	pthread_mutex_t	meal_mutex;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
 }	t_vars;

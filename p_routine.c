@@ -88,7 +88,9 @@ void	*p_routine(void *arg)
 		}
 		pthread_mutex_unlock(&vars->running_mutex);
 		take_forks(philo);
+		pthread_mutex_lock(&vars->meal_mutex);
 		gettimeofday(&philo->last_meal, NULL);
+		pthread_mutex_unlock(&vars->meal_mutex);
 		eat(philo);
 		philo->meals_nb++;
 		pthread_mutex_unlock(&vars->forks[philo->nb % vars->n]);
