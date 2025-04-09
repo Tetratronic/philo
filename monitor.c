@@ -38,7 +38,7 @@ void	*monitor(void *arg)
                 vars->running = false;
                 pthread_mutex_unlock(&vars->running_mutex);
                 pthread_mutex_lock(&vars->print);
-                printf("%ld: Philosopher %d died\n", get_elapsed_time(vars->start_time), vars->philos[i].nb);
+                printf("%ld %d died\n", get_elapsed_time(vars->start_time), vars->philos[i].nb);
                 pthread_mutex_unlock(&vars->print);
                 break;
             }
