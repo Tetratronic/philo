@@ -17,7 +17,7 @@ static void	take_forks(t_philo	*philo)
 	t_vars	*vars;
 
 	vars = philo->vars;
-	if (philo->nb % 2 == 0)
+	if (philo->nb % 2 != 0)
 	{
 		pthread_mutex_lock(&vars->forks[philo->nb - 1]);
 		pthread_mutex_lock(&vars->forks[philo->nb % vars->n]);
