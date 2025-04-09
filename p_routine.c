@@ -68,6 +68,10 @@ static void	think(t_philo *philo)
 	printf("%ld %d is thinking\n",
 		get_elapsed_time(vars->start_time), philo->nb);
 	pthread_mutex_unlock(&vars->print);
+	if (philo->nb % 2 == 0)
+		ttt *= 0.9;
+	else
+		ttt *= 1.1;
 	usleep(ttt * 1000);
 }
 
