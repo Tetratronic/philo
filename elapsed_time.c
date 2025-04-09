@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-long get_elapsed_time(struct timeval start)
+long	get_elapsed_time(struct timeval start)
 {
 	struct timeval	now;
 	long			seconds;
