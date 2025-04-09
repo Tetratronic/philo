@@ -53,5 +53,6 @@ int		clean_resources(t_vars *vars, int ret_value);
 void	*p_routine(void *arg);
 void	*monitor(void *arg);
 long	get_elapsed_time(struct timeval start);
+void	mutex_print(t_vars *vars, int nb);
 
 #endif

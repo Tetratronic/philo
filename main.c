@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 	{
 		pthread_create(&vars.philos[i].id, NULL, p_routine, &vars.philos[i]);
 		pthread_detach(vars.philos[i].id);
-		if (i % 2 != 0)
+		if (i % 2 == 0)
 			usleep(500);
 	}
 	pthread_create(&mon_id, NULL, monitor, &vars);

@@ -20,12 +20,16 @@ static void	take_forks(t_philo	*philo)
 	if (philo->nb % 2 == 0)
 	{
 		pthread_mutex_lock(&vars->forks[philo->nb - 1]);
+		mutex_print(vars, philo->nb);
 		pthread_mutex_lock(&vars->forks[philo->nb % vars->n]);
+		mutex_print(vars, philo->nb);
 	}
 	else
 	{
 		pthread_mutex_lock(&vars->forks[philo->nb % vars->n]);
+		mutex_print(vars, philo->nb);
 		pthread_mutex_lock(&vars->forks[philo->nb - 1]);
+		mutex_print(vars, philo->nb);
 	}
 }
 
@@ -35,10 +39,6 @@ static void	eat(t_philo *philo)
 
 	vars = philo->vars;
 	pthread_mutex_lock(&vars->print);
-	printf("%ld %d has taken a fork\n",
-		get_elapsed_time(vars->start_time), philo->nb);
-	printf("%ld %d has taken a fork\n",
-		get_elapsed_time(vars->start_time), philo->nb);
 	printf("%ld %d is eating\n",
 		get_elapsed_time(vars->start_time), philo->nb);
 	pthread_mutex_unlock(&vars->print);
@@ -68,10 +68,6 @@ static void	think(t_philo *philo)
 	printf("%ld %d is thinking\n",
 		get_elapsed_time(vars->start_time), philo->nb);
 	pthread_mutex_unlock(&vars->print);
-	if (philo->nb % 2 == 0)
-		ttt *= 0.9;
-	else
-		ttt *= 1.1;
 	usleep(ttt * 1000);
 }
 
@@ -93,13 +89,13 @@ void	*p_routine(void *arg)
 		pthread_mutex_unlock(&vars->running_mutex);
 		take_forks(philo);
 		gettimeofday(&philo->last_meal, NULL);
-		philo->meals_nb++;
 		eat(philo);
+		philo->meals_nb++;
 		pthread_mutex_unlock(&vars->forks[philo->nb % vars->n]);
 		pthread_mutex_unlock(&vars->forks[philo->nb - 1]);
-		p_sleep(philo);
 		if (vars->meal_count != -1 && philo->meals_nb >= vars->meal_count)
 			break ;
+		p_sleep(philo);
 		think(philo);
 	}
 	return (NULL);

@@ -23,3 +23,11 @@ long	get_elapsed_time(struct timeval start)
 	microseconds = now.tv_usec - start.tv_usec;
 	return (seconds * 1000 + microseconds / 1000);
 }
+
+void	mutex_print(t_vars *vars, int nb)
+{
+	pthread_mutex_lock(&vars->print);
+	printf("%ld %d has taken a fork\n",
+		get_elapsed_time(vars->start_time), nb);
+	pthread_mutex_unlock(&vars->print);
+}
