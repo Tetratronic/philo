@@ -47,8 +47,5 @@ void	*monitor(void *arg)
 			}
 		}
 	}
-	i = -1;
-	while (++i < vars->n)
-		pthread_join(vars->philos[i].id, NULL);
 	return (NULL);
 }

@@ -42,7 +42,7 @@ static void	eat(t_philo *philo)
 	printf("%ld %d is eating\n",
 		get_elapsed_time(vars->start_time), philo->nb);
 	pthread_mutex_unlock(&vars->print);
-	usleep(vars->tte * 1000);
+	ft_usleep(vars->tte);
 }
 
 static void	p_sleep(t_philo *philo)
@@ -54,21 +54,21 @@ static void	p_sleep(t_philo *philo)
 	printf("%ld %d is sleeping\n",
 		get_elapsed_time(vars->start_time), philo->nb);
 	pthread_mutex_unlock(&vars->print);
-	usleep(vars->tts * 1000);
+	ft_usleep(vars->tts);
 }
 
 static void	think(t_philo *philo)
 {
 	t_vars	*vars;
-	long	ttt;
+	//long	ttt;
 
 	vars = philo->vars;
-	ttt = (vars->ttd - vars->tte - vars->tts) / vars->n;
+	//ttt = (vars->ttd - vars->tte - vars->tts) / vars->n;
 	pthread_mutex_lock(&vars->print);
 	printf("%ld %d is thinking\n",
 		get_elapsed_time(vars->start_time), philo->nb);
 	pthread_mutex_unlock(&vars->print);
-	usleep(ttt * 1000);
+	//ft_usleep(ttt);
 }
 
 void	*p_routine(void *arg)
