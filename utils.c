@@ -32,7 +32,7 @@ void	mutex_print(t_vars *vars, int nb)
 	pthread_mutex_unlock(&vars->print);
 }
 
-long int		actual_time(void)
+long int	actual_time(void)
 {
 	struct timeval		current_time;
 
