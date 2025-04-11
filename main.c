@@ -25,11 +25,11 @@ int	main(int argc, char **argv)
 		return (clean_resources(&vars, -1));
 	i = -1;
 	while (++i < vars.n)
-	{
 		pthread_create(&vars.philos[i].id, NULL, p_routine, &vars.philos[i]);
-		pthread_detach(vars.philos[i].id);
-	}
 	pthread_create(&mon_id, NULL, monitor, &vars);
+	i = -1;
+	while (++i < vars.n)
+		pthread_join(vars.philos[i].id, NULL);
 	pthread_join(mon_id, NULL);
 	return (clean_resources(&vars, 0));
 }

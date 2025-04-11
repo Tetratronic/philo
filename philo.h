@@ -57,5 +57,6 @@ long	get_elapsed_time(struct timeval start);
 void	mutex_print(t_vars *vars, int nb);
 long	actual_time(void);
 void	ft_usleep(long int time_in_ms);
+void	ph_printf(t_vars *vars, int nb, char *state);
 
 #endif

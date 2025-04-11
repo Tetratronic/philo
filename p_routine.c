@@ -20,16 +20,16 @@ static void	take_forks(t_philo	*philo)
 	if (philo->nb % 2 == 0)
 	{
 		pthread_mutex_lock(&vars->forks[philo->nb - 1]);
-		mutex_print(vars, philo->nb);
+		ph_printf(vars, philo->nb, "has taken a fork");
 		pthread_mutex_lock(&vars->forks[philo->nb % vars->n]);
-		mutex_print(vars, philo->nb);
+		ph_printf(vars, philo->nb, "has taken a fork");
 	}
 	else
 	{
 		pthread_mutex_lock(&vars->forks[philo->nb % vars->n]);
-		mutex_print(vars, philo->nb);
+		ph_printf(vars, philo->nb, "has taken a fork");
 		pthread_mutex_lock(&vars->forks[philo->nb - 1]);
-		mutex_print(vars, philo->nb);
+		ph_printf(vars, philo->nb, "has taken a fork");
 	}
 }
 
@@ -38,10 +38,7 @@ static void	eat(t_philo *philo)
 	t_vars	*vars;
 
 	vars = philo->vars;
-	pthread_mutex_lock(&vars->print);
-	printf("%ld %d is eating\n",
-		get_elapsed_time(vars->start_time), philo->nb);
-	pthread_mutex_unlock(&vars->print);
+	ph_printf(vars, philo->nb, "is eating");
 	ft_usleep(vars->tte);
 }
 
@@ -50,10 +47,7 @@ static void	p_sleep(t_philo *philo)
 	t_vars	*vars;
 
 	vars = philo->vars;
-	pthread_mutex_lock(&vars->print);
-	printf("%ld %d is sleeping\n",
-		get_elapsed_time(vars->start_time), philo->nb);
-	pthread_mutex_unlock(&vars->print);
+	ph_printf(vars, philo->nb, "is sleeping");
 	ft_usleep(vars->tts);
 }
 
@@ -64,10 +58,7 @@ static void	think(t_philo *philo)
 
 	vars = philo->vars;
 	ttt = (vars->ttd - vars->tte - vars->tts) / vars->n;
-	pthread_mutex_lock(&vars->print);
-	printf("%ld %d is thinking\n",
-		get_elapsed_time(vars->start_time), philo->nb);
-	pthread_mutex_unlock(&vars->print);
+	ph_printf(vars, philo->nb, "is thinking");
 	ft_usleep(ttt);
 }
 

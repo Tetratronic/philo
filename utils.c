@@ -24,14 +24,6 @@ long	get_elapsed_time(struct timeval start)
 	return (seconds * 1000 + microseconds / 1000);
 }
 
-void	mutex_print(t_vars *vars, int nb)
-{
-	pthread_mutex_lock(&vars->print);
-	printf("%ld %d has taken a fork\n",
-		get_elapsed_time(vars->start_time), nb);
-	pthread_mutex_unlock(&vars->print);
-}
-
 long int	actual_time(void)
 {
 	struct timeval		current_time;
@@ -48,4 +40,20 @@ void	ft_usleep(long int time_in_ms)
 	start_time = actual_time();
 	while ((actual_time() - start_time) < time_in_ms)
 		usleep(100);
+}
+
+void	ph_printf(t_vars *vars, int nb, char *state)
+{
+	pthread_mutex_lock(&vars->print);
+	pthread_mutex_lock(&vars->running_mutex);
+	if (!vars->running)
+	{
+		pthread_mutex_unlock(&vars->running_mutex);
+		pthread_mutex_unlock(&vars->print);
+		return ;
+	}
+	pthread_mutex_unlock(&vars->running_mutex);
+	printf("%ld %d is %s\n",
+		get_elapsed_time(vars->start_time), nb, state);
+	pthread_mutex_unlock(&vars->print);
 }
