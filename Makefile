@@ -12,6 +12,7 @@ all : $(NAME)
 
 $(NAME): $(OBJS) $(HEADER)
 	$(CC) $(OBJS) $(CFLAGS) -o $(NAME)
+	make clean;
 
 clean:
 	rm -f $(OBJS)
