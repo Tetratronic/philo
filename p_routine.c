@@ -94,6 +94,8 @@ void	*p_routine(void *arg)
 		pthread_mutex_unlock(&vars->forks[philo->nb % vars->n]);
 		if (vars->n > 1)
 			pthread_mutex_unlock(&vars->forks[philo->nb - 1]);
+		if (vars->meal_count != -1 && philo->meals_nb >= vars->meal_count)
+			break ;
 		p_sleep(philo);
 		think(philo);
 	}
