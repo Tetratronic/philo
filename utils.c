@@ -57,3 +57,18 @@ void	ph_printf(t_vars *vars, int nb, char *state)
 		get_elapsed_time(vars->start_time), nb, state);
 	pthread_mutex_unlock(&vars->print);
 }
+
+long calculate_min_runtime(t_vars *vars, int x)
+{
+    long cycle_time, estimated_time;
+    
+    cycle_time = vars->time_to_eat + vars->time_to_sleep;
+    if (vars->n == 1)
+        return -1;
+    if (vars->n == 2)
+        estimated_time = x * cycle_time;
+    else
+        estimated_time = x * cycle_time * ((vars->n + 1) / 2);
+    estimated_time = estimated_time * 1.2;
+    return estimated_time;
+}
