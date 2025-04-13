@@ -45,7 +45,7 @@ void	*monitor(void *arg)
 				pthread_mutex_unlock(&vars->print);
 				break ;
 			}
-			usleep(100);
+			usleep(50);
 		}
 	}
 	return (NULL);
