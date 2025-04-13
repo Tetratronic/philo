@@ -67,9 +67,9 @@ static void	think(t_philo *philo)
 	ttt = (vars->ttd - vars->tte - vars->tts) / vars->n;
 	ph_printf(vars, philo->nb, "is thinking");
 	if (philo->nb % 2 == 0)
-		ft_usleep(ttt * 1.1);
-	else
 		ft_usleep(ttt * 0.9);
+	else
+		ft_usleep(ttt * 1.1);
 }
 
 void	*p_routine(void *arg)
