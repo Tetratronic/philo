@@ -32,22 +32,20 @@ long int	actual_time(void)
 	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
 }
 
-void	ft_usleep(long  ms)
+void	ft_usleep(long ms)
 {
-    long start;
-    long now;
+	long	start;
+	long	now;
 
 	start = actual_time();
-    while (1)
-    {
-        now = actual_time();
-        if ((now - start) >= ms)
-            break;
-        if ((ms - (now - start)) > 1)
-            usleep(100);
-        else
-            ;
-    }
+	while (1)
+	{
+		now = actual_time();
+		if ((now - start) >= ms)
+			break ;
+		if ((ms - (now - start)) > 1)
+			usleep(100);
+	}
 }
 
 void	ph_printf(t_vars *vars, int nb, char *state)
