@@ -17,11 +17,9 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <unistd.h>
-# include <ctype.h>
 # include <stdbool.h>
 # include <sys/time.h>
 # include <limits.h>
-/*# define pthread_create(x, y, z, a) -1*/
 
 typedef struct s_philo	t_philo;
 

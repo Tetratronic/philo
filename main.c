@@ -21,7 +21,6 @@ void	sim_abort(t_vars *vars)
 
 void	protected_thread(t_vars *vars, int i)
 {
-	i = i + 0;
 	if (pthread_create(&vars->philos[i].id, NULL, p_routine, &vars->philos[i]))
 		sim_abort(vars);
 }
