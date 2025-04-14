@@ -58,6 +58,7 @@ int	init_mutexes(t_vars *vars)
 		pthread_mutex_init(&vars->forks[i], NULL);
 	pthread_mutex_init(&vars->print, NULL);
 	pthread_mutex_init(&vars->running_mutex, NULL);
+	pthread_mutex_init(&vars->counter, NULL);
 	pthread_mutex_init(&vars->meal_mutex, NULL);
 	return (1);
 }

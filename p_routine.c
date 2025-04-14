@@ -88,7 +88,7 @@ void	*p_routine(void *arg)
 		pthread_mutex_lock(&vars->meal_mutex);
 		gettimeofday(&philo->last_meal, NULL);
 		pthread_mutex_unlock(&vars->meal_mutex);
-		if (vars->meal_count != -1 && --philo->meals_nb <= 0)
+		if ((vars->meal_count != -1) && all_meals_eaten(philo))
 			break ;
 		p_sleep(philo);
 		think(philo);

@@ -33,9 +33,10 @@ typedef struct s_vars{
 	t_philo			*philos;
 	struct timeval	start_time;
 	pthread_mutex_t	running_mutex;
-	pthread_mutex_t	meal_mutex;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
+	pthread_mutex_t	meal_mutex;
+	pthread_mutex_t	counter;
 }	t_vars;
 
 typedef struct s_philo{
@@ -59,5 +60,6 @@ long	actual_time(void);
 void	ft_usleep(long int time_in_ms);
 void	ph_printf(t_vars *vars, int nb, char *state);
 int		should_end(t_vars *vars);
+int		all_meals_eaten(t_philo *philo);
 
 #endif
