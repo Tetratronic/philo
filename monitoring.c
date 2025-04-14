@@ -57,7 +57,7 @@ void	*monitor(void *arg)
 				end_simulation(vars, i);
 				break ;
 			}
-			usleep(100);
+			usleep(50);
 		}
 	}
 	return (NULL);
