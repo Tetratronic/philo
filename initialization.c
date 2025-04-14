@@ -39,7 +39,7 @@ int	init_philos(t_vars *vars)
 	while (++i < vars->n)
 	{
 		vars->philos[i].nb = i + 1;
-		vars->philos[i].meals_nb = 0;
+		vars->philos[i].meals_nb = vars->meal_count;
 		vars->philos[i].vars = vars;
 		vars->philos[i].last_meal = vars->start_time;
 	}

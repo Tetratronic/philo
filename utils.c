@@ -63,3 +63,15 @@ void	ph_printf(t_vars *vars, int nb, char *state)
 		get_elapsed_time(vars->start_time), nb, state);
 	pthread_mutex_unlock(&vars->print);
 }
+
+int	should_end(t_vars *vars)
+{
+	pthread_mutex_lock(&vars->running_mutex);
+	if (!vars->running)
+	{
+		pthread_mutex_unlock(&vars->running_mutex);
+		return (1);
+	}
+	pthread_mutex_unlock(&vars->running_mutex);
+	return (0);
+}

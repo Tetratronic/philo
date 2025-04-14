@@ -78,13 +78,8 @@ void	*p_routine(void *arg)
 	vars = philo->vars;
 	while (1)
 	{
-		pthread_mutex_lock(&vars->running_mutex);
-		if (!vars->running)
-		{
-			pthread_mutex_unlock(&vars->running_mutex);
+		if (should_end(vars))
 			break ;
-		}
-		pthread_mutex_unlock(&vars->running_mutex);
 		take_forks(philo);
 		eat(philo);
 		pthread_mutex_unlock(&vars->forks[philo->nb % vars->n]);
@@ -93,8 +88,7 @@ void	*p_routine(void *arg)
 		pthread_mutex_lock(&vars->meal_mutex);
 		gettimeofday(&philo->last_meal, NULL);
 		pthread_mutex_unlock(&vars->meal_mutex);
-		philo->meals_nb++;
-		if (vars->meal_count != -1 && philo->meals_nb >= vars->meal_count)
+		if (vars->meal_count != -1 && --philo->meals_nb <= 0)
 			break ;
 		p_sleep(philo);
 		think(philo);

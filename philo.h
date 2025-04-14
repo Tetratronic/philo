@@ -6,7 +6,7 @@
 /*   By: abenkaro <abenkaro@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 17:39:13 by abenkaro          #+#    #+#             */
-/*   Updated: 2025/03/15 17:39:14 by abenkaro         ###   ########.fr       */
+/*   Updated: 2025/04/14 11:43:46 by abenkaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ void	mutex_print(t_vars *vars, int nb);
 long	actual_time(void);
 void	ft_usleep(long int time_in_ms);
 void	ph_printf(t_vars *vars, int nb, char *state);
+int		should_end(t_vars *vars);
 
 #endif
