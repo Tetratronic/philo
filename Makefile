@@ -1,4 +1,4 @@
-SRCS = main.c cleaning.c utils.c initialization.c monitor.c p_routine.c parsing.c
+SRCS = main.c cleaning.c utils.c initialization.c monitoring.c p_routine.c parsing.c
 NAME = philo
 OBJS = $(SRCS:%.c=%.o)
 CC = cc
