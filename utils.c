@@ -44,7 +44,7 @@ void	ft_usleep(long ms)
 		if ((now - start) >= ms)
 			break ;
 		if ((ms - (now - start)) > 1)
-			usleep(50);
+			usleep(100);
 	}
 }
 
@@ -59,7 +59,7 @@ void	ph_printf(t_vars *vars, int nb, char *state)
 		return ;
 	}
 	pthread_mutex_unlock(&vars->running_mutex);
-	printf("%ld %d is %s\n",
+	printf("%ld %d %s\n",
 		get_elapsed_time(vars->start_time), nb, state);
 	pthread_mutex_unlock(&vars->print);
 }

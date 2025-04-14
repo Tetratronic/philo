@@ -12,20 +12,31 @@
 
 #include "philo.h"
 
-void	init_vars(t_vars *vars, char **argv)
+int	init_vars(t_vars *vars, char **argv, int argc)
 {
-	vars->n = atoi(argv[1]);
-	vars->ttd = atoi(argv[2]);
-	vars->tte = atoi(argv[3]);
-	vars->tts = atoi(argv[4]);
+	int		i;
+	long	val;
+
+	i = 1;
+	while (i < argc)
+	{
+		val = ft_atoi(argv[i++]);
+		if ((long)val > (long)INT_MAX + 1 || val <= 0)
+			return (0);
+	}
+	vars->n = (int)ft_atoi(argv[1]);
+	vars->ttd = (int)ft_atoi(argv[2]);
+	vars->tte = (int)ft_atoi(argv[3]);
+	vars->tts = (int)ft_atoi(argv[4]);
 	vars->running = true;
 	if (argv[5])
-		vars->meal_count = atoi(argv[5]);
+		vars->meal_count = (int)ft_atoi(argv[5]);
 	else
 		vars->meal_count = -1;
 	gettimeofday(&vars->start_time, NULL);
 	vars->philos = NULL;
 	vars->forks = NULL;
+	return (1);
 }
 
 int	init_philos(t_vars *vars)

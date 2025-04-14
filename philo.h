@@ -20,6 +20,7 @@
 # include <ctype.h>
 # include <stdbool.h>
 # include <sys/time.h>
+# include <limits.h>
 
 typedef struct s_philo	t_philo;
 
@@ -48,7 +49,7 @@ typedef struct s_philo{
 }	t_philo;
 
 int		valid_values(int argc, char **argv);
-void	init_vars(t_vars *vars, char **argv);
+int		init_vars(t_vars *vars, char **argv, int argc);
 int		init_philos(t_vars *vars);
 int		init_mutexes(t_vars *vars);
 int		clean_resources(t_vars *vars, int ret_value);
@@ -61,5 +62,6 @@ void	ft_usleep(long int time_in_ms);
 void	ph_printf(t_vars *vars, int nb, char *state);
 int		should_end(t_vars *vars);
 int		all_meals_eaten(t_philo *philo);
+long	ft_atoi(const char *str);
 
 #endif

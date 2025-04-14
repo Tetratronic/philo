@@ -64,7 +64,7 @@ static void	think(t_philo *philo)
 	long	ttt;
 
 	vars = philo->vars;
-	ttt = (vars->ttd - vars->tte - vars->tts) / vars->n;
+	ttt = (vars->ttd - vars->tte - vars->tts) / 2.3;
 	ph_printf(vars, philo->nb, "is thinking");
 	ft_usleep(ttt);
 }

@@ -18,9 +18,8 @@ int	main(int argc, char **argv)
 	pthread_t	mon_id;
 	int			i;
 
-	if (!valid_values(argc, argv))
+	if (!valid_values(argc, argv) || !init_vars(&vars, argv, argc))
 		return (-1);
-	init_vars(&vars, argv);
 	if (!init_mutexes(&vars) || !init_philos(&vars))
 		return (clean_resources(&vars, -1));
 	i = -1;
