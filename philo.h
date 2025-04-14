@@ -21,6 +21,7 @@
 # include <stdbool.h>
 # include <sys/time.h>
 # include <limits.h>
+/*# define pthread_create(x, y, z, a) -1*/
 
 typedef struct s_philo	t_philo;
 
@@ -63,5 +64,6 @@ void	ph_printf(t_vars *vars, int nb, char *state);
 int		should_end(t_vars *vars);
 int		all_meals_eaten(t_philo *philo);
 long	ft_atoi(const char *str);
+void	free_mem(t_vars *vars);
 
 #endif

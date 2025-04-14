@@ -27,8 +27,10 @@ void	destroy_mutexes(t_vars *vars)
 
 void	free_mem(t_vars *vars)
 {
-	free(vars->philos);
-	free(vars->forks);
+	if (vars->philos)
+		free(vars->philos);
+	if (vars->forks)
+		free(vars->forks);
 	vars->philos = NULL;
 	vars->forks = NULL;
 }
