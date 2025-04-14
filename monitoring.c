@@ -36,13 +36,14 @@ void	*monitor(void *arg)
 			pthread_mutex_unlock(&vars->meal_mutex);
 			if (elapsed > vars->ttd)
 			{
+				pthread_mutex_lock(&vars->print);
+				if (vars->philos[i].meals_nb > vars->meal_count)
+					printf("%ld %d died\n",
+						get_elapsed_time(vars->start_time), vars->philos[i].nb);
+				pthread_mutex_unlock(&vars->print);
 				pthread_mutex_lock(&vars->running_mutex);
 				vars->running = false;
 				pthread_mutex_unlock(&vars->running_mutex);
-				pthread_mutex_lock(&vars->print);
-				printf("%ld %d died\n",
-					get_elapsed_time(vars->start_time), vars->philos[i].nb);
-				pthread_mutex_unlock(&vars->print);
 				break ;
 			}
 			usleep(100);
