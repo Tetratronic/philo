@@ -45,6 +45,9 @@ static void	eat(t_philo *philo)
 	t_vars	*vars;
 
 	vars = philo->vars;
+	pthread_mutex_lock(&philo->lastmeal_mx);
+	gettimeofday(&philo->last_meal, NULL);
+	pthread_mutex_unlock(&philo->lastmeal_mx);
 	ph_printf(vars, philo->nb, "is eating");
 	ft_usleep(vars->tte);
 }
@@ -85,9 +88,6 @@ void	*p_routine(void *arg)
 		pthread_mutex_unlock(&vars->forks[philo->nb % vars->n]);
 		if (vars->n > 1)
 			pthread_mutex_unlock(&vars->forks[philo->nb - 1]);
-		pthread_mutex_lock(&vars->meal_mutex);
-		gettimeofday(&philo->last_meal, NULL);
-		pthread_mutex_unlock(&vars->meal_mutex);
 		if ((vars->meal_count != -1) && all_meals_eaten(philo))
 			break ;
 		p_sleep(philo);

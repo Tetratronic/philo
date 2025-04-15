@@ -44,7 +44,7 @@ void	ft_usleep(long ms)
 		if ((now - start) >= ms)
 			break ;
 		if ((ms - (now - start)) > 1)
-			usleep(50);
+			usleep(100);
 	}
 }
 

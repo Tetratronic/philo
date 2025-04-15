@@ -18,11 +18,13 @@ void	destroy_mutexes(t_vars *vars)
 
 	pthread_mutex_destroy(&vars->running_mutex);
 	pthread_mutex_destroy(&vars->print);
-	pthread_mutex_destroy(&vars->meal_mutex);
-	pthread_mutex_destroy(&vars->counter);
 	i = -1;
 	while (++i < vars->n)
+	{
 		pthread_mutex_destroy(&vars->forks[i]);
+		pthread_mutex_destroy(&vars->philos[i].lastmeal_mx);
+		pthread_mutex_destroy(&vars->philos[i].nbmeal_mx);
+	}
 }
 
 void	free_mem(t_vars *vars)

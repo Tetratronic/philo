@@ -35,8 +35,6 @@ typedef struct s_vars{
 	pthread_mutex_t	running_mutex;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
-	pthread_mutex_t	meal_mutex;
-	pthread_mutex_t	counter;
 }	t_vars;
 
 typedef struct s_philo{
@@ -45,6 +43,8 @@ typedef struct s_philo{
 	int				meals_nb;
 	struct timeval	last_meal;
 	t_vars			*vars;
+	pthread_mutex_t	lastmeal_mx;
+	pthread_mutex_t	nbmeal_mx;
 }	t_philo;
 
 int		valid_values(int argc, char **argv);

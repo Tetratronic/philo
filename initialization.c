@@ -53,6 +53,8 @@ int	init_philos(t_vars *vars)
 		vars->philos[i].meals_nb = vars->meal_count;
 		vars->philos[i].vars = vars;
 		vars->philos[i].last_meal = vars->start_time;
+		pthread_mutex_init(&vars->philos[i].nbmeal_mx, NULL);
+		pthread_mutex_init(&vars->philos[i].lastmeal_mx, NULL);
 	}
 	return (1);
 }
@@ -69,7 +71,5 @@ int	init_mutexes(t_vars *vars)
 		pthread_mutex_init(&vars->forks[i], NULL);
 	pthread_mutex_init(&vars->print, NULL);
 	pthread_mutex_init(&vars->running_mutex, NULL);
-	pthread_mutex_init(&vars->counter, NULL);
-	pthread_mutex_init(&vars->meal_mutex, NULL);
 	return (1);
 }
