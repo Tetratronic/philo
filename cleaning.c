@@ -16,11 +16,14 @@ void	destroy_mutexes(t_vars *vars)
 {
 	int	i;
 
+	pthread_mutex_destroy(&vars->running_mx);
 	pthread_mutex_destroy(&vars->print_mx);
 	i = -1;
 	while (++i < vars->n)
 	{
 		pthread_mutex_destroy(&vars->forks[i]);
+		pthread_mutex_destroy(&vars->philos[i].lastmeal_mx);
+		pthread_mutex_destroy(&vars->philos[i].nbmeal_mx);
 	}
 }
 

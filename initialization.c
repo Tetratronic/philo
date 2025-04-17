@@ -53,6 +53,7 @@ int	init_philos(t_vars *vars)
 		vars->philos[i].nb = i + 1;
 		vars->philos[i].meals_nb = vars->meal_count;
 		vars->philos[i].vars = vars;
+		pthread_mutex_init(&vars->philos[i].nbmeal_mx, NULL);
 		pthread_mutex_init(&vars->philos[i].lastmeal_mx, NULL);
 	}
 	return (1);
@@ -69,5 +70,6 @@ int	init_mutexes(t_vars *vars)
 	while (++i < vars->n)
 		pthread_mutex_init(&vars->forks[i], NULL);
 	pthread_mutex_init(&vars->print_mx, NULL);
+	pthread_mutex_init(&vars->running_mx, NULL);
 	return (1);
 }

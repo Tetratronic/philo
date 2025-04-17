@@ -3,7 +3,7 @@ NAME = philo
 OBJS = $(SRCS:%.c=%.o)
 CC = cc
 HEADER = philo.h
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror
 
 all : $(NAME)
 

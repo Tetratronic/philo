@@ -14,18 +14,27 @@
 
 static void	end_simulation(t_vars *vars, int i)
 {
+	pthread_mutex_lock(&vars->running_mx);
 	vars->running = false;
+	pthread_mutex_unlock(&vars->running_mx);
+	pthread_mutex_lock(&vars->philos[i].nbmeal_mx);
 	pthread_mutex_lock(&vars->print_mx);
 	if (vars->n == 1 || vars->philos[i].meals_nb != 0)
 		printf("%ld %d died\n",
 			get_elapsed_time(vars->start_time), vars->philos[i].nb);
 	pthread_mutex_unlock(&vars->print_mx);
+	pthread_mutex_unlock(&vars->philos[i].nbmeal_mx);
 }
 
 int	all_meals_eaten(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->nbmeal_mx);
 	if (--philo->meals_nb <= 0)
+	{
+		pthread_mutex_unlock(&philo->nbmeal_mx);
 		return (1);
+	}
+	pthread_mutex_unlock(&philo->nbmeal_mx);
 	return (0);
 }
 

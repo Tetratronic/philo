@@ -14,7 +14,9 @@
 
 void	stop_simulation(t_vars *vars)
 {
+	pthread_mutex_lock(&vars->running_mx);
 	vars->running = !vars->running;
+	pthread_mutex_unlock(&vars->running_mx);
 }
 
 void	protected_thread(t_vars *vars, int i)

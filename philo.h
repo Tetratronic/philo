@@ -31,9 +31,10 @@ typedef struct s_vars
 	int				tts;
 	int				ttt;
 	int				meal_count;
-	_Atomic bool	running;
+	bool			running;
 	t_philo			*philos;
 	struct timeval	start_time;
+	pthread_mutex_t	running_mx;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mx;
 }	t_vars;
@@ -42,10 +43,11 @@ typedef struct s_philo
 {
 	pthread_t		id;
 	int				nb;
-	_Atomic int		meals_nb;
+	int				meals_nb;
 	struct timeval	last_meal;
 	t_vars			*vars;
 	pthread_mutex_t	lastmeal_mx;
+	pthread_mutex_t	nbmeal_mx;
 }	t_philo;
 
 int		valid_values(int argc, char **argv);

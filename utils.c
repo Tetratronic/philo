@@ -51,11 +51,14 @@ void	ft_usleep(long ms)
 void	ph_printf(t_vars *vars, int nb, char *state)
 {
 	pthread_mutex_lock(&vars->print_mx);
+	pthread_mutex_lock(&vars->running_mx);
 	if (!vars->running)
 	{
+		pthread_mutex_unlock(&vars->running_mx);
 		pthread_mutex_unlock(&vars->print_mx);
 		return ;
 	}
+	pthread_mutex_unlock(&vars->running_mx);
 	printf("%ld %d %s\n",
 		get_elapsed_time(vars->start_time), nb, state);
 	pthread_mutex_unlock(&vars->print_mx);
@@ -63,7 +66,12 @@ void	ph_printf(t_vars *vars, int nb, char *state)
 
 int	should_end(t_vars *vars)
 {
+	pthread_mutex_lock(&vars->running_mx);
 	if (!vars->running)
+	{
+		pthread_mutex_unlock(&vars->running_mx);
 		return (1);
+	}
+	pthread_mutex_unlock(&vars->running_mx);
 	return (0);
 }
