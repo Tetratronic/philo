@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#define	BS 1
+#define	BS 1024
 
 char	*get_line(char *rem)
 {
@@ -30,6 +30,8 @@ char *strjoin(const char* str1, const char* str2) {
     }
 	if (!str1)
 		return (strdup(str2));
+	if (!str2)
+		return (strdup(str1));
     size_t len1 = strlen(str1);
     size_t len2 = strlen(str2);
     char* result = (char*)malloc(len1 + len2 + 1);
@@ -55,22 +57,18 @@ char	*keep_rem(char **rem)
 	return (res);
 }
 
-char	*check_rem(char **rem)
+char *check_rem(char **rem)
 {
-	char	*temp;
-
-	if (*rem && **rem)
-	{
-		temp = strdup(*rem);
-		free(*rem);
-		*rem = temp;
-	}
-	else
-	{
-		free(*rem);
-		*rem = NULL;
-	}
-	return (*rem);
+    char *temp;
+    if (*rem)
+    {
+        temp = strdup(*rem);
+        free(*rem);
+        *rem = NULL;
+    }
+    else
+        temp = NULL;
+    return (temp);
 }
 
 char	*get_next_line(int	fd)
@@ -81,7 +79,7 @@ char	*get_next_line(int	fd)
 	ssize_t			bytes;
 	char			*temp;
 
-	if (BS < 0)
+	if (BS <= 0)
 		return (NULL);
 	while (1)
 	{
@@ -112,15 +110,13 @@ int	main()
 	int	fd;
 	char	*line;
 
-	fd = open("testfile", O_RDONLY);
+	fd = open("Makefile", O_RDONLY);
 	while (1)
 	{
-		line = get_next_line(fd);
+		line = get_next_line(0);
 		if (!line)
 			break ;
 		printf("%s", line);
 		free(line);
 	}
 }
-
-
