@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abenkaro <abenkaro@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 17:39:13 by abenkaro          #+#    #+#             */
-/*   Updated: 2025/04/14 11:43:46 by abenkaro         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:12:06 by abenkaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -20,6 +20,10 @@
 # include <stdbool.h>
 # include <sys/time.h>
 # include <limits.h>
+# include <semaphore.h>
+# include <fcntl.h>
+# include <signal.h>
+# include <sys/wait.h>
 
 typedef struct s_philo	t_philo;
 
@@ -29,23 +33,20 @@ typedef struct s_vars
 	int				ttd;
 	int				tte;
 	int				tts;
-	int				ttt;
 	int				meal_count;
-	_Atomic bool	running;
+	bool			running;
 	t_philo			*philos;
 	struct timeval	start_time;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	print_mx;
+	sem_t			*forks;
 }	t_vars;
 
 typedef struct s_philo
 {
 	pthread_t		id;
 	int				nb;
-	_Atomic int		meals_nb;
+	int				meals_nb;
 	struct timeval	last_meal;
 	t_vars			*vars;
-	pthread_mutex_t	lastmeal_mx;
 }	t_philo;
 
 int		valid_values(int argc, char **argv);

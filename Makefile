@@ -3,7 +3,7 @@ NAME = philo
 OBJS = $(SRCS:%.c=%.o)
 CC = cc
 HEADER = philo.h
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
 
 all : $(NAME)
 
@@ -12,7 +12,6 @@ all : $(NAME)
 
 $(NAME): $(OBJS) $(HEADER)
 	$(CC) $(OBJS) $(CFLAGS) -o $(NAME)
-	make clean;
 
 clean:
 	rm -f $(OBJS)

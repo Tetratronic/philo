@@ -64,12 +64,10 @@ static void	p_sleep(t_philo *philo)
 static void	think(t_philo *philo)
 {
 	t_vars	*vars;
-	long	ttt;
 
 	vars = philo->vars;
-	ttt = (vars->ttd - vars->tte - vars->tts) / 2.25;
 	ph_printf(vars, philo->nb, "is thinking");
-	ft_usleep(ttt);
+	ft_usleep(vars->ttt);
 }
 
 void	*p_routine(void *arg)
@@ -79,6 +77,8 @@ void	*p_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	vars = philo->vars;
+	if (philo->nb % 2 != 0)
+		ft_usleep(vars->ttt);
 	while (1)
 	{
 		if (should_end(vars))

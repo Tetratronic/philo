@@ -12,17 +12,16 @@
 
 #include "philo.h"
 
-void	sim_abort(t_vars *vars)
+void	stop_simulation(t_vars *vars)
 {
-	pthread_mutex_lock(&vars->running_mutex);
 	vars->running = !vars->running;
-	pthread_mutex_unlock(&vars->running_mutex);
 }
 
 void	protected_thread(t_vars *vars, int i)
 {
+	gettimeofday(&vars->philos[i].last_meal, NULL);
 	if (pthread_create(&vars->philos[i].id, NULL, p_routine, &vars->philos[i]))
-		sim_abort(vars);
+		stop_simulation(vars);
 }
 
 int	main(int argc, char **argv)
@@ -37,12 +36,9 @@ int	main(int argc, char **argv)
 		return (free_mem(&vars), -1);
 	i = -1;
 	while (++i < vars.n)
-	{
 		protected_thread(&vars, i);
-		usleep((vars.philos[i].nb % 3) * 100);
-	}
 	if (pthread_create(&mon_id, NULL, monitor, &vars))
-		sim_abort(&vars);
+		stop_simulation(&vars);
 	else
 		pthread_join(mon_id, NULL);
 	while (--i >= 0)

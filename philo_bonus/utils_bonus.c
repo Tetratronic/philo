@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abenkaro <abenkaro@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 20:04:19 by abenkaro          #+#    #+#             */
-/*   Updated: 2025/04/06 20:04:49 by abenkaro         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:05:24 by abenkaro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 long	get_elapsed_time(struct timeval start)
 {
@@ -51,11 +51,14 @@ void	ft_usleep(long ms)
 void	ph_printf(t_vars *vars, int nb, char *state)
 {
 	pthread_mutex_lock(&vars->print_mx);
+	pthread_mutex_lock(&vars->running_mx);
 	if (!vars->running)
 	{
+		pthread_mutex_unlock(&vars->running_mx);
 		pthread_mutex_unlock(&vars->print_mx);
 		return ;
 	}
+	pthread_mutex_unlock(&vars->running_mx);
 	printf("%ld %d %s\n",
 		get_elapsed_time(vars->start_time), nb, state);
 	pthread_mutex_unlock(&vars->print_mx);
@@ -63,7 +66,12 @@ void	ph_printf(t_vars *vars, int nb, char *state)
 
 int	should_end(t_vars *vars)
 {
+	pthread_mutex_lock(&vars->running_mx);
 	if (!vars->running)
+	{
+		pthread_mutex_unlock(&vars->running_mx);
 		return (1);
+	}
+	pthread_mutex_unlock(&vars->running_mx);
 	return (0);
 }
