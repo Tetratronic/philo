@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#define	BS 4
+#define	BS 1
 
 char	*get_line(char *rem)
 {
@@ -112,7 +112,7 @@ int	main()
 	int	fd;
 	char	*line;
 
-	fd = open("gnl.c", O_RDONLY);
+	fd = open("testfile", O_RDONLY);
 	while (1)
 	{
 		line = get_next_line(fd);
