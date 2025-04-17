@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#define	BS 42
+#define	BS 4
 
 char	*get_line(char *rem)
 {
@@ -13,7 +13,7 @@ char	*get_line(char *rem)
 	int		i;
 
 	pos = strchr(rem, '\n') - rem;
-	res = malloc(pos);
+	res = malloc(pos + 2);
 	if (!res)
 		return NULL;
 	i = 0;
@@ -55,12 +55,31 @@ char	*keep_rem(char **rem)
 	return (res);
 }
 
+char	*check_rem(char **rem)
+{
+	char	*temp;
+
+	if (*rem && **rem)
+	{
+		temp = strdup(*rem);
+		free(*rem);
+		*rem = temp;
+	}
+	else
+	{
+		free(*rem);
+		*rem = NULL;
+	}
+	return (*rem);
+}
+
 char	*get_next_line(int	fd)
 {
 	static	char	*rem;
 	char			*line;
 	char			buffer[BS + 1];
 	ssize_t			bytes;
+	char			*temp;
 
 	if (BS < 0)
 		return (NULL);
@@ -76,15 +95,15 @@ char	*get_next_line(int	fd)
 		if (bytes > 0)
 		{
 			buffer[bytes] = '\0';
-			rem = strjoin(rem, buffer);
+			temp = strjoin(rem, buffer);
+			free(rem);
+			rem = temp;
 			continue ;
 		}
 		else if (bytes == -1)
 			return (NULL);
-		return (NULL);
-		// return (check_rem(rem));
+	return (check_rem(&rem));
 	}
-	return (NULL);
 }
 
 
