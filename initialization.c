@@ -28,7 +28,7 @@ int	init_vars(t_vars *vars, char **argv, int argc)
 	vars->ttd = (int)ft_atoi(argv[2]);
 	vars->tte = (int)ft_atoi(argv[3]);
 	vars->tts = (int)ft_atoi(argv[4]);
-	vars->ttt = (vars->ttd - vars->tte - vars->tts) / 2.29;
+	vars->ttt = (vars->ttd - vars->tte - vars->tts) / 2.27;
 	vars->running = true;
 	if (argv[5])
 		vars->meal_count = (int)ft_atoi(argv[5]);
